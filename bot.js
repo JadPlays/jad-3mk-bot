@@ -71,4 +71,17 @@ client.on("messageReactionAdd", async (reaction, user) => {
       await thread.delete("Reached 4 ❌ reactions");
       console.log(`Deleted forum post ${thread.id} — 4 ❌ reached`);
     }
-  } catch (
+  } catch (err) {
+    console.error("Failed to handle reaction:", err);
+  }
+});
+
+client.on("error", console.error);
+client.login(token);
+
+const http = require("http");
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end("I'm alive");
+}).listen(PORT, () => console.log(`HTTP server listening on port ${PORT}`));
